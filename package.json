@@ -1,0 +1,40 @@
+{
+  "name": "leaflet.pie",
+  "version": "0.1.0",
+  "description": "A plugin to render pie charts in Leaflet maps",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "leaflet": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ale-/Leaflet.Pie.git"
+  },
+  "keywords": [
+    "leaflet",
+    "map",
+    "pie",
+    "chart",
+    "data",
+    "visualization",
+    "statistics"
+  ],
+  "author": "Ale González",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Ale-/Leaflet.Pie/issues"
+  },
+  "homepage": "https://github.com/Ale-/Leaflet.Pie#readme"
+}
