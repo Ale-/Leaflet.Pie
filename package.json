@@ -6,9 +6,6 @@
   "directories": {
     "example": "example"
   },
-  "dependencies": {
-    "leaflet": "^1.0.3"
-  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.5.1",
