@@ -3,8 +3,7 @@ const concatenate = require('gulp-concat');
 const uglify      = require('gulp-uglify');
 const rename      = require('gulp-rename');
 const babel       = require('gulp-babel');
-
-console.log(babel);
+const watch       = require('gulp-watch');
 
 const source_files = [
     'src/banner.js',
@@ -15,7 +14,8 @@ const source_files = [
     'src/PieLegend.js',
 ]
 
-gulp.task('default', function() {
+
+gulp.task('build', function(){
   return gulp.src( source_files )
       .pipe(babel({
           presets: ["env"],
@@ -26,3 +26,10 @@ gulp.task('default', function() {
       .pipe(uglify())
       .pipe(gulp.dest('dist'));
 });
+
+
+gulp.task('watch', function(){
+  gulp.watch(source_files , ['build']);
+});
+
+gulp.task('default', ['watch']);
