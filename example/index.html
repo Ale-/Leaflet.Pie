@@ -45,7 +45,8 @@
                 dataset     : dataset,
             }).addTo(map);
 
-             const ajax = new XMLHttpRequest();
+            var ajax = new XMLHttpRequest();
+            ajax.overrideMimeType("application/json");
             ajax.onreadystatechange = function() {
                 if (ajax.readyState == XMLHttpRequest.DONE) {
                     if (ajax.status == 200) {
