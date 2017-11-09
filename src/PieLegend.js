@@ -12,6 +12,7 @@ L.Pie.Control.DatasetLegend = L.Control.extend(
         description : '',
         source_text : '',
         source_url  : '',
+        labels      : [],
         dataset     : {},
     },
 
@@ -23,11 +24,11 @@ L.Pie.Control.DatasetLegend = L.Control.extend(
     /** Returns legend markup */
     _legend(){
         let list = "<ul>";
-            this.options.dataset.categories.forEach( function(category){
+            this.options.categories.forEach( function(cat){
                 list += L.Util.template("<li class='{item_class}'><span class='icon' style='color: {item_color}'>■</span> <span>{item_name}</span></li>", {
                   item_class    : 'leaflet-pie-dataset-legend__legend-item',
-                  item_color    :  category.col,
-                  item_name     :  category.name,
+                  item_color    :  cat.color,
+                  item_name     :  cat.label,
                 });
            });
         list += "</ul>";

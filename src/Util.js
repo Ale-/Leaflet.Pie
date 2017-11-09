@@ -13,23 +13,47 @@ L.Pie.Util.slugify = function(text){
         .replace(/-+$/, '');       // Trim - from end of text
 };
 
+/** Calculates pie radius **/
+L.Pie.Util.pieDiameter = function(total, scale_factor){
+    const diam = Math.sqrt( parseFloat(total) / Math.PI) * 2;
+    return scale_factor * diam;
+};
+
 /** Returns the markup of the Icon. **/
-L.Pie.Util.drawPie = function(diameter, options, className){
-    var markup = "<svg class='" + className + "' width=" + diameter + " height=" + diameter + " viewBox='0 0 2 2'>";
+L.Pie.Util.drawPie = function(sum, diameter, data, display){
+    var markup = "<div class='dataset-item'><svg class='dataset-item__pie' width=" + diameter + " height=" + diameter + " viewBox='0 0 2 2'>";
     let angle = 0;
     let x = 1 + Math.cos(angle);
     let y = 1 + Math.sin(angle);
-    for(var i = 0; i < options.data.length; i++){
-        const angle_increment = options.data[i] * Math.PI * 2 / options.data_sum;
+    for(var i = 0; i < data.length; i++){
+        const angle_increment = data[i] * Math.PI * 2 / sum;
         const large_flag      = angle_increment > Math.PI ? 1 : 0;
-        let path  = "<path class='" + className + "__dataitem' fill='" + options.dataset.categories[i].col  + "' d='M " + x + " " + y + " A 1 1 0 ";
-        angle    += angle_increment;
-        x         = 1 + Math.cos(angle);
-        y         = 1 + Math.sin(angle);
-        path     += large_flag + " 1 " + x + " " + y + " L 1 1 Z' />";
-        markup   += path;
+        markup   += "<path class='dataset-item__category cat--" + L.Pie.Util.slugify(display.categories[i].label) + "'" +
+                    (display.hover_callback ? (" onmouseover='" + display.hover_callback + "(this, this.parent)'") : '') +
+                    " data-value='" + data[i] + "'data-category='" + display.categories[i].label +
+                    "' data-color='" + display.categories[i].color +"' fill='" + display.categories[i].color +
+                    "' d='M " + x + " " + y + " A 1 1 0 ";
+        angle  += angle_increment;
+        x       = 1 + Math.cos(angle);
+        y       = 1 + Math.sin(angle);
+        markup += large_flag + " 1 " + x + " " + y + " L 1 1 Z' />";
     }
     markup += "</svg>";
-
-    return markup;
+    if(display.default_hover){
+        markup += "<ul class='dataset-item__legend " + (display.hover_classes ? display.hover_classes : '') + " '>";
+        for(var i = 0; i < data.length; i++){
+            markup += "\
+            <li class='dataset-item__legend-item'>\
+                <p class='dataset-item__legend-item-label'>\
+                    <i class='legend-color' style='color: " + display.categories[i].color + "'></i>" +
+                    display.categories[i].label +
+                "</p>\
+                <p class='dataset-item__legend-item-value'>" +
+                    data[i] + " " + display.units +
+                "</p>\
+            </li>";
+        }
+        return markup + '</ul></div>';
+    }
+    return markup + '</div>';
 };

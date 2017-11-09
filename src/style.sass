@@ -1,0 +1,54 @@
+//
+//  Leaflet.Pie 0.1
+//  (c) 2017 Ale González
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+// OOCSS
+
+.lpie-dark
+  background: #111
+  color: white
+.lpie-light
+  background: white
+  color: #111
+.lpie-shadow
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5)
+
+// BASIC STYLES
+
+.dataset-item
+  position: relative
+.dataset-item__legend
+  position: fixed
+  z-index: 100000
+  visibility: hidden
+  pointer-events: none
+.dataset-item__pie:hover + .dataset-item__legend
+  visibility: visible
+.dataset-item__legend
+  padding: 10px
+.dataset-item__legend-item
+  list-style: none
+.legend-color::before
+  content: "\25a0"
+  font-size: 10px
+  display: inline-block
+  vertical-align: middle
+  margin-right: 8px
+.dataset-item__legend-item-label,
+.dataset-item__legend-item-value
+  margin: 5px 0
+  max-width: 90%
+  text-overflow: ellipsis
+  white-space: nowrap
