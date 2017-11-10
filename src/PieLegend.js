@@ -7,13 +7,14 @@
 L.Pie.Control.DatasetLegend = L.Control.extend(
 {
     options: {
-  			position    : 'topright',
-        title       : '',
-        description : '',
-        source_text : '',
-        source_url  : '',
-        labels      : [],
-        dataset     : {},
+  			position       : 'topright',
+        title          : '',
+        description    : '',
+        source_text    : '',
+        source_url     : '',
+        labels         : [],
+        dataset        : {},
+        legend_classes : '',
     },
 
     /** Constructor */
@@ -23,14 +24,16 @@ L.Pie.Control.DatasetLegend = L.Control.extend(
 
     /** Returns legend markup */
     _legend(){
-        let list = "<ul>";
-            this.options.categories.forEach( function(cat){
-                list += L.Util.template("<li class='{item_class}'><span class='icon' style='color: {item_color}'>■</span> <span>{item_name}</span></li>", {
-                  item_class    : 'leaflet-pie-dataset-legend__legend-item',
-                  item_color    :  cat.color,
-                  item_name     :  cat.label,
-                });
-           });
+        let list = "<ul class='lpie-legend__legend'>";
+        this.options.categories.forEach( function(cat){
+            list += L.Util.template("<li class='{i_cl}'><span class={co_cl} style='color: {item_color}'></span><span class='{ca_cl}'>{item_name}</span></li>", {
+              i_cl       : 'lpie-legend__item',
+              item_color :  cat.color,
+              item_name  :  cat.label,
+              co_cl      : 'lpie-legend__color-icon',
+              ca_cl      : 'lpie-legend__category',
+            });
+        });
         list += "</ul>";
         return list;
     },
@@ -56,17 +59,16 @@ L.Pie.Control.DatasetLegend = L.Control.extend(
 
     /** Creates control markup */
     onAdd(){
-        this._container = L.DomUtil.create('div', 'leaflet-pie-dataset-legend');
+        this._container = L.DomUtil.create('div', 'lpie-legend ' + this.options.legend_classes);
         this._container.innerHTML = L.Util.template(
-            '<h1 class="{t_cl}">{t}</h1><p class="{p_cl}">{d}</p><div class="{l_cl}">{l}</div><div class="{s_cl}">{s}</div>', {
+            '<p class="{t_cl}">{t}</p><p class="{p_cl}">{d}</p>{l}<div class="{s_cl}">{s}</div>', {
             t    : this.options.title,
             d    : this.options.description,
             l    : this._legend(),
             s    : this._source(),
-            t_cl : 'leaflet-pie-dataset-legend__title',
-            p_cl : 'leaflet-pie-dataset-legend__description',
-            l_cl : 'leaflet-pie-dataset-legend__legend',
-            s_cl : 'leaflet-pie-dataset-legend__source'
+            t_cl : 'lpie-legend__title',
+            p_cl : 'lpie-legend__description',
+            s_cl : 'lpie-legend__source'
         });
         return this._container;
     },
