@@ -1,4 +1,5 @@
-![Snapshot of example](example/snapshot.jpg)
+# Pie
+Pie is a Leaflet plugin that render pie graphs in Leaflet maps.
 
-# Leaflet.Pie
-A Leaflet plugin that add markers that render pie graphs in its coordinates.
+Pie website: https://pie.wwb.cc/
+
