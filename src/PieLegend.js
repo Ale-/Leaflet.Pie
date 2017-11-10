@@ -24,14 +24,14 @@ L.Pie.Control.DatasetLegend = L.Control.extend(
 
     /** Returns legend markup */
     _legend(){
-        let list = "<ul class='lpie-legend__legend'>";
+        let list = "<ul class='lpie-legend__categories'>";
         this.options.categories.forEach( function(cat){
             list += L.Util.template("<li class='{i_cl}'><span class={co_cl} style='color: {item_color}'></span><span class='{ca_cl}'>{item_name}</span></li>", {
-              i_cl       : 'lpie-legend__item',
+              i_cl       : 'lpie-legend__categories-item',
               item_color :  cat.color,
               item_name  :  cat.label,
               co_cl      : 'lpie-legend__color-icon',
-              ca_cl      : 'lpie-legend__category',
+              ca_cl      : 'lpie-legend__categories-label',
             });
         });
         list += "</ul>";
