@@ -23,9 +23,7 @@ gulp.task('build', function(){
       .pipe(babel({
           presets: ["env"],
       }))
-      .pipe(concatenate('LeafletPie.src.js'))
-      .pipe(gulp.dest('dist'))
-      .pipe(rename('LeafletPie.min.js'))
+      .pipe(concatenate('LeafletPie.min.js'))
       .pipe(uglify())
       .pipe(gulp.dest('dist'));
 });
