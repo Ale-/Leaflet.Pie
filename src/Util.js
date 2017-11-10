@@ -14,9 +14,15 @@ L.Pie.Util.slugify = function(text){
 };
 
 /** Calculates pie radius **/
-L.Pie.Util.pieDiameter = function(total, scale_factor){
-    const diam = Math.sqrt( parseFloat(total) / Math.PI) * 2;
-    return scale_factor * diam;
+L.Pie.Util.scaled_diameter = function(value, min_value, wished_min_diameter){
+    const real_min_diameter = Math.sqrt(parseFloat(min_value)) * 2 / Math.PI;
+    const scale_factor      =  wished_min_diameter / real_min_diameter;
+    return Math.sqrt(parseFloat(value)) * 2 * scale_factor / Math.PI ;
+};
+
+/** Calculates Flannery-compensated magnitude **/
+L.Pie.Util.compensated_diameter = function(value, min_value, min_diameter){
+    return 1.0083 * Math.pow(value/min_value, 0.5716) * min_diameter;
 };
 
 /** Returns the markup of the Icon. **/

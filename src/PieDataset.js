@@ -6,15 +6,24 @@
 
 L.Pie.Dataset = L.Class.extend(
 {
-    data     : {},
+    data      : {},
 
-    displays : {},
+    min_value : Number.MAX_VALUE,
 
-    legends  : {},
+    displays  : {},
+
+    legends   : {},
 
     /** Constructor */
     initialize(data){
         this.data = data;
+        // Get minimum and maximum value
+        let min = Number.MAX_VALUE;
+        data.forEach( function(item){
+            item.sum = item.data.reduce( (x,y) => x+y );
+            if(item.sum < min) min = item.sum;
+        });
+        this.min_value = min;
     },
 
     /** Get data */
@@ -36,14 +45,18 @@ L.Pie.Dataset = L.Class.extend(
 
     /** Get a marker */
     marker(item, display, map){
-        var sum           = item.data.reduce( (x,y) => x+y );
-        var diam          = L.Pie.Util.pieDiameter(sum, display.scale_factor);
+        let diam;
+        if(display.compensation){
+            diam = L.Pie.Util.compensated_diameter(item.sum, this.min_value, display.min_size);
+        } else {
+            diam = L.Pie.Util.scaled_diameter(item.sum, this.min_value, display.min_size);
+        }
         // Create icon
         var pie = L.divIcon({
             className  : 'leaflet-pie',
             iconSize   : [diam, diam],
             iconAnchor : [diam/2, diam/2],
-            html       : L.Pie.Util.drawPie(sum, diam, item.data, display),
+            html       : L.Pie.Util.drawPie(item.sum, diam, item.data, display),
         });
         // Create marker
         return L.marker(item.coords, { icon: pie});
