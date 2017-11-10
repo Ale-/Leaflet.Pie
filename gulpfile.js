@@ -33,7 +33,7 @@ gulp.task('build', function(){
 gulp.task('sass', function(){
   return gulp.src( sass_files )
       .pipe(sass({ outputStyle : 'compressed' }).on('error', sass.logError))
-      .pipe(rename('style.min.css'))
+      .pipe(rename('LeafletPie.min.css'))
       .pipe(gulp.dest('dist'));
 });
 
